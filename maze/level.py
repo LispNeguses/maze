@@ -1,13 +1,14 @@
 import random
 
+#gaps need to be flatenned to avoid incremental growth of the gap
 def flatten_adjacent_gaps(line):
-  i = 1
-  while i < len(line):    
-    if line[i] == line[i-1] and line[i] == ' ':
-      rand = random.choice([0,1])
-      line[i-rand] = ''
-    i += 1
-  return line
+    i = 1
+    while i < len(line):
+        if line[i] == line[i-1] and line[i] == ' ':
+            rand = random.choice([0,1])
+            line[i-rand] = ''
+        i += 1
+    return line
 
 #returns a new line with the same length as the previous line
 #assumes previous line obeys the specification, should probably add some checks

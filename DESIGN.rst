@@ -7,6 +7,7 @@ Generating the Map
 The map should be generated one line at a time and the generation function should be called with the previous line so that the maze exits will line up. A path should be generated at random from this condition and blockers should also be randomly placed.
 
 ::
+   
    ## #### #
    #  #### #
    # ##    #
@@ -17,6 +18,7 @@ The map should be generated one line at a time and the generation function shoul
 The next line generated would then have to start with the same gaps and then extra blocks by the side could be generated. e.g.
 
 ::
+   
    ##  ##  #
    ## #### #
    #  #### #

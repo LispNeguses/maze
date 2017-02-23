@@ -8,6 +8,7 @@ class Maze():
         self._scale = 3
         self.columns = columns
         self.rows = rows
+        self._movement_steps = 0
         self._last_row = [' ']
         self._last_row.extend(['#']*(columns-len(self._last_row)))
         self.grid_size = 16
@@ -51,8 +52,17 @@ class Maze():
         for row in range(self.rows):
             self._maze.append(self._make_row_of_sprites(row))
 
+    def extend_maze(self):
+        self._maze.pop(0)
+        self._maze.append(
+            self._make_row_of_sprites(self.rows + self._movement_steps))
+        self._movement_steps += 1
+
     def draw(self):
+        glPushMatrix()
+        glTranslatef(0.0, -self._movement_steps*16*self._scale, 0.0)
         self._batch.draw()
+        glPopMatrix()
 
 
 def main():
@@ -77,4 +87,5 @@ if __name__ == '__main__':
         w.clear()
         wall.draw()
         maze.draw()
+        maze.extend_maze()
     pyglet.app.run()

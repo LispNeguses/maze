@@ -9,7 +9,7 @@ class Maze():
         self.columns = columns
         self.rows = rows
         self._last_row = [' ']
-        self._last_row.extend(['#']*(columns-1))
+        self._last_row.extend(['#']*(columns-len(self._last_row)))
         self.grid_size = 16
         self._get_row = row_getter
         self._maze = []
@@ -21,6 +21,7 @@ class Maze():
         glTexParameteri(tiles_texture, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         self._wall = tiles[(4,4)]
         self._ground = tiles[(4,1)]
+        self._treasure = tiles[(0,0)]
         self._batch = pyglet.graphics.Batch()
         self._start_maze()
 
@@ -33,6 +34,9 @@ class Maze():
                 row.append(pyglet.sprite.Sprite(self._wall, batch=self._batch))
             elif cell == " ":
                 row.append(pyglet.sprite.Sprite(self._ground,
+                                                batch=self._batch))
+            elif cell == "t":
+                row.append(pyglet.sprite.Sprite(self._treasure,
                                                 batch=self._batch))
             else:
                 raise

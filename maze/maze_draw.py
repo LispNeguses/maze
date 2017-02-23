@@ -1,4 +1,5 @@
 import pyglet
+import level
 from pyglet.gl import *
 
 
@@ -7,6 +8,8 @@ class Maze():
         self._scale = 3
         self.columns = columns
         self.rows = rows
+        self._last_row = [' ']
+        self._last_row.extend(['#']*(columns-1))
         self.grid_size = 16
         self._get_row = row_getter
         self._maze = []
@@ -24,7 +27,8 @@ class Maze():
     def _make_row_of_sprites(self, row_index):
         row = []
         column = 0
-        for cell in self._get_row(self.columns):
+        self._last_row = self._get_row(self._last_row)
+        for cell in self._last_row:
             if cell == "#":
                 row.append(pyglet.sprite.Sprite(self._wall, batch=self._batch))
             elif cell == " ":
@@ -63,7 +67,7 @@ if __name__ == '__main__':
     pyglet.resource.reindex()
     w = pyglet.window.Window(width=384, height=384)
     wall = main()
-    maze = Maze(8, 8, row_getter)
+    maze = Maze(8, 8, level.generate_level_line)
     @w.event
     def on_draw():
         w.clear()
